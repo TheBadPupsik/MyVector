@@ -110,6 +110,80 @@ public:
 		return temp;
     }
 
+    operator int() {
+        return size;
+    }
+
+    void operator() (){
+		cout << "Array: ";
+        for (int i = 0; i < size; i++)
+        {
+			cout << arr[i] << " ";
+		}
+	}
+
+
+    Myvector operator+=(int num) {
+        int* newArr = new int[size + num];
+
+        for (size_t i = 0; i < size; i++) {
+            newArr[i] = arr[i];
+        }
+
+        for (size_t i = 0; i < num; i++) {
+            newArr[size + i] = rand() % 50;
+        }
+
+        delete[] arr;
+        arr = newArr;
+        size += num;
+        return *this;
+
+    }
+
+    Myvector operator-=(int num) {
+        int* newArr = new int[size + num];
+
+        for (size_t i = 0; i < size; i++) {
+            newArr[i] = arr[i];
+        }
+
+        for (size_t i = 0; i < num; i++) {
+            newArr[size - i] = rand() % 50;
+        }
+
+        delete[] arr;
+        arr = newArr;
+        size -= num;
+        return *this;
+
+    }
+
+    Myvector operator*=(int num) {
+        int* newArr = new int[size + num];
+
+        for (size_t i = 0; i < size; i++) {
+            newArr[i] = arr[i];
+        }
+
+        for (size_t i = 0; i < num; i++) {
+            newArr[i] *= 5;
+        }
+
+        delete[] arr;
+        arr = newArr;
+        size -= num;
+        return *this;
+
+    }
+
+    Myvector operator = (Myvector&& vec) {
+        size = vec.size;
+        arr = vec.arr;
+        vec.size = 0;
+        vec.arr = nullptr;
+		return *this;
+
 };
 
 int main() {
@@ -125,6 +199,10 @@ int main() {
     }
     cout << endl;
 
+	int size = vec1;
+	cout << "Size = " << size << endl;
+
+	cout << endl;
     cout << "Constructor copy" << endl;
 	Myvector vec2 = vec1;
     vec2.Print();
@@ -142,15 +220,26 @@ int main() {
     vec4.Init();
     vec4--;
 	vec4.Print();
-    
 
+    cout << endl;
+    cout << "+=" << endl;
+    Myvector vec5(10);
+    vec5.Init();
+    vec5 += 5;
+    vec5.Print();
 
+    cout << endl;
+    cout << "-=" << endl;
+    Myvector vec6(10);
+    vec6.Init();
+    vec6 -= 5;
+    vec6.Print();
 
-
-
-
-
-
-
+    cout << endl;
+    cout << "*=" << endl;
+    Myvector vec7(10);
+    vec7.Init();
+    vec7 *= 5;
+    vec7.Print();
 
 }
