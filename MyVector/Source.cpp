@@ -202,10 +202,29 @@ public:
 
     }
 
-
+    void Add(int i, int a) {
+            arr[i] = a;
+	}
 
 
 };
+
+    istream& operator>> (istream& cin, Myvector& obj){
+        int a;
+        for (size_t i = 0; i < obj.GetSize(); i++){
+            cin >> a;
+			obj.Add(i, a);
+        }
+		return cin;
+
+	}
+
+    ostream& operator<< (ostream& o, Myvector& obj) {
+        for (size_t i = 0; i < obj.GetSize(); i++) {
+            o << obj[i] << " ";
+        }
+        return o;
+    }
 
     Myvector operator+ (int b, Myvector& obj)
     {
@@ -233,6 +252,10 @@ public:
         Myvector vec1(10);
         vec1.Init();
         vec1.Print();
+
+        cout << endl;
+        cout << vec1;
+        cout << endl;
 
         for (int i = 0; i < vec1.GetSize(); i++)
         {
